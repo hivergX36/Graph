@@ -166,6 +166,9 @@ public void displayGraph(){
 			System.out.println();
 		}
 
+
+  
+
     //    for(int r = 0; r < AdjacencyList.size(); r++){
 
       //      	System.out.print(AdjacencyList.get(r)+ "\t");
@@ -179,10 +182,7 @@ public void displayGraph(){
 
 
     
-      
-        
-
-    }
+}
 }
 
 
