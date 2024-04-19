@@ -63,14 +63,16 @@ struct list_adjacence{
     int Nodes[V];
     int chemin[V];
     int dist[V];
+    int visit[V];
     std::queue<int>QNbNode;
 
     for(int i = 0; i < V + 1; i++){
         Nodes[i] = i;
         dist[i] =  1000000;
         chemin[i] = 1000000;
+        visit[i] = 0;
 
-    } 
+    };
     
     dist[0] = 0;
     chemin[0] = 0;
@@ -80,17 +82,17 @@ struct list_adjacence{
     while (Lenght > 0)
     {
     prec = QNbNode.front();
+    visit[prec] = 1;
     std::cout << "Le predecesseur est: " << prec << " " << std::endl;
     QNbNode.pop();
 
     for (Succ el : graph.l[prec])
     {
+        if(visit[el.succ] < 1){
         std::cout << "le successeur est: " << el.succ << std::endl;
   
         Distsucc = dist[el.succ];
-        std::cout << "La distance au successeur est: " << Distsucc << std::endl;
         distance = dist[prec] + el.weight;
-        std::cout << "La distance au predecesseur est: " << distance << std::endl;
 
         if(distance < Distsucc) {
             dist[el.succ] = distance;
@@ -99,13 +101,15 @@ struct list_adjacence{
             QNbNode.push(el.succ);
             };
         };
+        };
     Lenght = QNbNode.size();
-    std::cout << "La longueur de la pile est: " << Lenght << std::endl;
     }
 
     for(int i = 0; i < V + 1; i++){
         std::cout << chemin[i] << " ";
     }
+
+     std::cout << std::endl;
  
     
 

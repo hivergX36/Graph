@@ -22,14 +22,14 @@ int main(){
    
 
     
-    list_adjacence graph(5);
+    breadthFistSearch_list_adjacence graph(5);
     
     for(int i = 0; i < 8; i++){
         graph.add_edges(vertices[i].pred, vertices[i].succ, poids[i]); 
         };
 
     graph.display_graph();
-    graph.breadthFistSearch(graph);
+    graph.breadthFistSearch();
 
     
 

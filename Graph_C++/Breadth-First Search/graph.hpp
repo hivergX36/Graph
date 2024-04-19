@@ -15,14 +15,14 @@ class Succ{
 };
 
 
-struct list_adjacence{
+struct breadthFistSearch_list_adjacence{
 
     public:
     int V;
     std::vector<Succ>*l;
 
 
-    list_adjacence(int Nbsommet){
+    breadthFistSearch_list_adjacence(int Nbsommet){
         
          V = Nbsommet;
          l = new std::vector<Succ>[Nbsommet];
@@ -55,57 +55,76 @@ struct list_adjacence{
 
 
 
-    void breadthFistSearch(list_adjacence graph){
+    void breadthFistSearch(){
     int  prec; 
-    int  Distsucc;
-    int  distance;
-    int  Lenght;
+    int Lenght;
+    int compteur;
     int Nodes[V];
-    int chemin[V];
-    int dist[V];
-    bool visit[V];
     int orderVisit[V];
+    int dist[V];
+    int visit[V];
+    int increment = 0;
     std::queue<int>QNbNode;
 
+    std::cout << "V" << V << std::endl;
+    
+
+    
+    
     for(int i = 0; i < V + 1; i++){
         Nodes[i] = i;
-        visit[V] = 0; 
+        visit[i] = 0; 
+        orderVisit[i] = 0;
 
     } 
     
-  
-    QNbNode.push(Nodes[0]);
+    QNbNode.push(0);
+    visit[0] = 1;
     Lenght = QNbNode.size();
-    
-    while (Lenght > 0)
-    {
+    while (Lenght > 0 && increment < 5){
     prec = QNbNode.front();
-    std::cout << "Le predecesseur est: " << prec << " " << std::endl;
+    std::cout << "prec: " << prec   << std::endl;
+
+
+    Lenght = QNbNode.size();
+    std::cout << "Longueur: " << Lenght   << std::endl;
     QNbNode.pop();
 
-    for (Succ el : graph.l[prec])
-    {
-        if(visit[el.succ < 1]){
-        std::cout << "le successeur est: " << el.succ << std::endl;
+    for (Succ el : l[prec]){
+        compteur = el.succ; 
 
-
-            chemin[el.succ] = prec;
-            QNbNode.push(el.succ);
+        if(visit[el.succ] < 1){
             visit[el.succ] = 1;
+            increment++;
+            orderVisit[increment] = el.succ;
+            QNbNode.push(el.succ);
+
+
 
         }
-        
-        };
-    Lenght = QNbNode.size();
-    std::cout << "La longueur de la pile est: " << Lenght << std::endl;
-    }
 
-    for(int i = 0; i < V + 1; i++){
-        std::cout << chemin[i] << " ";
-    }
- 
+     
+      };
+
+
+    std::cout << "incrementation: " << increment<< std::endl;
+
     
+   
 
+
+
+ 
+
+    };
+
+std::cout << "chemin:" << " ";
+   
+
+for(int i = 0; i < V + 1; i++){
+    std::cout << orderVisit[i] << " ";
+}
+std::cout << std::endl;
 };
 
 
