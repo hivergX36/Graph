@@ -1,8 +1,3 @@
-#include <vector> 
-#include <iostream>
-#include<stack>
-
-
 class Edge{
     public:
 
@@ -19,14 +14,14 @@ class Succ{
 };
 
 
-struct list_adjacence{
+struct dephtFirstSearchListAdjacence{
 
     public:
     int V;
     std::vector<Succ>*l;
 
 
-    list_adjacence(int Nbsommet){
+    dephtFirstSearchListAdjacence(int Nbsommet){
         
          V = Nbsommet;
          l = new std::vector<Succ>[Nbsommet];
@@ -59,58 +54,78 @@ struct list_adjacence{
 
 
 
-    void dephtFirstSearch(list_adjacence graph){
+    void dephtFirstSearch(){
     int  prec; 
-    int  Lenght;
+    int Lenght;
+    int compteur;
     int Nodes[V];
-    int chemin[V];
+    int orderVisit[V];
     int dist[V];
-    std::stack<int> deftStack;
+    int visit[V];
+    int increment = 0;
+    std::stack<int>nodeStack;
 
+    std::cout << "V" << V << std::endl;
+    
+
+    
+    
     for(int i = 0; i < V + 1; i++){
         Nodes[i] = i;
-        chemin[i] = 1000000;
+        visit[i] = 0; 
+        orderVisit[i] = 0;
 
     } 
     
-    chemin[0] = 0;
-    deftStack.push(Nodes[0]);
-    Lenght = deftStack.size();
+    nodeStack.push(0);
+    visit[0] = 1;
+    Lenght = nodeStack.size();
+    while (Lenght > 0 && increment < 5){
+    prec = nodeStack.top();
+    std::cout << "prec: " << prec   << std::endl;
+
+
+    Lenght = nodeStack.size();
+    std::cout << "Longueur: " << Lenght   << std::endl;
+    nodeStack.pop();
+
+    for (Succ el : l[prec]){
+        compteur = el.succ; 
+
+        if(visit[el.succ] < 1){
+            visit[el.succ] = 1;
+            increment++;
+            orderVisit[increment] = el.succ;
+            nodeStack.push(el.succ);
+
+
+
+        }
+
+     
+      };
+
+
+    std::cout << "incrementation: " << increment<< std::endl;
+
     
-    while (Lenght > 0)
-    {
-    prec = deftStack.top();
-    std::cout << "Le predecesseur est: " << prec << " " << std::endl;
-    deftStack.pop();
+   
 
-    for (Succ el : graph.l[prec])
-    {
-        std::cout << "le successeur est: " << el.succ << std::endl;
-  
-        Distsucc = dist[el.succ];
-        std::cout << "La distance au successeur est: " << Distsucc << std::endl;
-        distance = dist[prec] + el.weight;
-        std::cout << "La distance au predecesseur est: " << distance << std::endl;
 
-        if(distance < Distsucc) {
-            dist[el.succ] = distance;
-            chemin[el.succ] = prec;
-            if(el.succ < V){
-            QNbNode.push(el.succ);
-            };
-        };
-    Lenght = QNbNode.size();
-    std::cout << "La longueur de la pile est: " << Lenght << std::endl;
-    }
 
-    for(int i = 0; i < V + 1; i++){
-        std::cout << chemin[i] << " ";
-    }
  
-    
 
-};
     };
+
+    std::cout << "Le résultat du parcours en profondeur est: "; 
+   
+
+for(int i = 0; i < V + 1; i++){
+    std::cout << orderVisit[i] << " ";
+}
+std::cout << std::endl;
+};
+
 
 
 

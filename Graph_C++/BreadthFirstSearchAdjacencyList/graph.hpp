@@ -118,7 +118,7 @@ struct breadthFistSearch_list_adjacence{
 
     };
 
-std::cout << "chemin:" << " ";
+    std::cout << "Le résultat du parcours en largeur est: "; 
    
 
 for(int i = 0; i < V + 1; i++){
