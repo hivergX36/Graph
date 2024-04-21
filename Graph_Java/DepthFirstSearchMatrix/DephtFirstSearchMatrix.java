@@ -1,13 +1,15 @@
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.Stack;
 
-public class Djikstra extends Graph{
+public class DephtFirstSearchMatrix extends Graph{
 
     int Chemin[];
     int Distance[];
     Boolean Mark[];
 
-    Djikstra(String name){
+
+    DephtFirstSearchMatrix(String name){
         super(name); 
         int chemin[] = new int[this.NbVertices];
         Boolean mark[] = new Boolean[this.NbVertices];
@@ -25,23 +27,28 @@ public class Djikstra extends Graph{
 //Il y'a un problème de marquage 
 
     public void resolve(){
-        Queue<Integer> Queue = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<Integer>();
         int chemin[] = this.Chemin;
         int distance[] = this.Distance;
+        int succ; 
 
-        Queue.add(0);
+        stack.add(0);
         int visited;
         int neighbour;
-        while(Queue.size() > 0){
-            visited = Queue.remove(); 
+        int increment = 0;
+        while(stack.size() > 0){
+            visited = stack.pop(); 
             this.Mark[visited] = true;
             for(int j = 0; j < this.NbVertices; j ++){
                 neighbour = this.AdjacencyMatrix[visited][j];
                 if(neighbour > 0){
-                    Queue.add(j);
-                    if(neighbour < this.Distance[j]){
-                    this.Distance[j] = distance[visited] + neighbour;
-                    chemin[j] = visited;
+                    succ = j;
+                    if(this.Mark[succ] == false){
+                        increment++;
+                        chemin[increment] = succ;
+                        stack.add(succ);
+
+   
                 }
             }
         }
@@ -52,7 +59,7 @@ public class Djikstra extends Graph{
 }
 
 
-    public void displayDjikstra(){
+    public void displayDephtFirstSearch(){
         System.out.println("Le graph est: ");
         displayGraph();
         System.out.println("La solution est: ");
